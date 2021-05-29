@@ -30,7 +30,7 @@ export default {
         event: 'change'
     },
     props: {
-        value: { type: String, default: '' },
+        value: { type: [Array, String, Number], default: '' },
         inputListeners: { type: Object, default: () => ({}) },
         error: { type: String, default: null },
         mod: {
