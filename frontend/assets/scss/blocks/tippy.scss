@@ -1,0 +1,18 @@
+.tippy-box[data-theme~='error'] {
+    background-color: $color-danger;
+}
+.tippy-box[data-theme~='error'][data-placement^='top'] > .tippy-arrow::before {
+    border-top-color: $color-danger;
+}
+.tippy-box[data-theme~='error'][data-placement^='bottom'] > .tippy-arrow::before {
+    border-bottom-color: $color-danger;
+}
+.tippy-box[data-theme~='error'][data-placement^='left'] > .tippy-arrow::before {
+    border-left-color: $color-danger;
+}
+.tippy-box[data-theme~='error'][data-placement^='right'] > .tippy-arrow::before {
+    border-right-color: $color-danger;
+}
+.tippy-box[data-theme~='error'] > .tippy-svg-arrow {
+    fill: $color-danger;
+}

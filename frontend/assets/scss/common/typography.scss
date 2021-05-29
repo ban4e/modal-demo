@@ -1,0 +1,11 @@
+h3, .title-h3 {
+    @include rhythm(28, 40);
+    font-weight: 500;
+    color: $color-black;
+}
+
+@include media-breakpoint-down(sm) {
+    h3, .title-h3 {
+        @include rhythm(18, 24);
+    }
+}

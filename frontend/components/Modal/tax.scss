@@ -1,0 +1,16 @@
+.tax-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tax-item {
+    padding-bottom: 16px;
+    border-bottom: 1px solid $color-gray-400;
+}
+
+@include media-breakpoint-down(sm) {
+    .tax-submit {
+        margin-top: auto;
+    }
+}

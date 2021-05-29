@@ -1,0 +1,127 @@
+/* replace substring with another string
+ * credits: https://css-tricks.com/snippets/sass/str-replace-function/
+ */
+ @function str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+    @return $string;
+}
+
+/* аналог функции lighten для CSS переменных на основе HSL */
+@function lightenHSL($color, $amount) {
+    $color: str-replace($color, 'var(');
+    $color: str-replace($color, ')');
+    $color-h: var(#{$color + '-h'});
+    $color-s: var(#{$color + '-s'});
+    $color-l: var(#{$color + '-l'});
+    @return hsl($color-h, $color-s, calc(#{$color-l} * (1 + #{$amount})));
+}
+
+/* аналог функции darken для CSS переменных на основе HSL */
+@function darkenHSL($color, $amount) {
+    $color: str-replace($color, 'var(');
+    $color: str-replace($color, ')');
+    $color-h: var(#{$color + '-h'});
+    $color-s: var(#{$color + '-s'});
+    $color-l: var(#{$color +'-l'});
+    @return hsl($color-h, $color-s, calc(#{$color-l} * (1 - #{$amount})));
+}
+
+/* вырезает единицы измерения */
+@function remove-unit($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+/* переводит px в rem */
+@function rem($size) {
+    @return remove-unit($size) / remove-unit($root-font-size) * 1rem;
+}
+
+/* устанавливает line-height из px */
+@function line-height($line-height, $size: false) {
+    @if ($size) {
+        @return remove-unit($line-height) / remove-unit($size);
+    }
+    @return remove-unit($size) / remove-unit($root-font-size) * 1rem;
+}
+
+@mixin font($size: 1rem, $weight: 400, $line-height: 1.5) {
+    font: {
+        size: $size;
+        weight: $weight;
+    };
+    line-height: $line-height;
+}
+
+@mixin trbl($arguments...) {
+    @if (length($arguments) == 1) {
+        top: $arguments;
+        right: $arguments;
+        bottom: $arguments;
+        left: $arguments;
+    }
+}
+
+@mixin rhythm($size, $line-height: false) {
+    font-size: remove-unit($size) * 1px; //fallback
+    font-size: rem($size);
+    @if ($line-height) {
+        line-height: line-height($line-height, $size);
+    }
+}
+
+@mixin line-clamp($size) {
+    display: -webkit-box;
+    -webkit-line-clamp: $size;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@mixin glitchText($offset, $text, $color, $backgroundColor) {
+    content: $text;
+    text-transform: inherit;
+    position: absolute;
+    left: $offset;
+    top: $offset;
+    clip: rect(0, 900px, 0, 0);
+    background-color: $backgroundColor;
+    color: $color;
+    text-shadow: -3px 0 $color-primary;
+    animation: glitch 3s infinite alternate-reverse;
+}
+
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    &:-moz-placeholder {
+        @content;
+    }
+    &::-moz-placeholder {
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
+@mixin media-breakpoint-down($breakpoint, $breakpoints: $media-sizes) {
+    @if index(map-keys($breakpoints), $breakpoint) {
+        $normalizedBreakpoint: map-get($breakpoints, $breakpoint) - .02;
+        @media (max-width: $normalizedBreakpoint) {
+            @content;
+        }
+    } @else {
+        @error "Значение #{$breakpoint} должно находиться в массиве!";
+    }
+}
+
+@mixin defineColorHSL($color, $hue, $saturation, $lightness) {
+    $hueNormalized: str-replace(#{$hue}, 'deg');
+    #{$color}: unquote("hsl(#{$hueNormalized}, #{$saturation}, #{$lightness})");
+    #{$color}-h: #{$hueNormalized};
+    #{$color}-s: #{$saturation};
+    #{$color}-l: #{$lightness};
+}

@@ -1,0 +1,56 @@
+@keyframes pulsy {
+    from {
+        transform: scale(0);
+        opacity: 1;
+    }
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+@keyframes progress {
+    0% {
+        stroke-dasharray: 1px, 200px;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 100px, 200px;
+        stroke-dashoffset: -15px;
+    }
+    100% {
+        stroke-dasharray: 100px, 200px;
+        stroke-dashoffset: -120px;
+    }
+}
+@keyframes rotate-360 {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes jello-horizontal {
+    0% {
+        transform: scale3d(1, 1, 1);
+    }
+    30% {
+        transform: scale3d(1.125, 0.875, 1);
+    }
+    40% {
+        transform: scale3d(0.875, 1.125, 1);
+    }
+    50% {
+        transform: scale3d(1.08, 0.96, 1);
+    }
+    65% {
+        transform: scale3d(0.98, 1.02, 1);
+    }
+    75% {
+        transform: scale3d(1.02, 0.98, 1);
+    }
+    100% {
+        transform: scale3d(1, 1, 1);
+    }
+}

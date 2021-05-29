@@ -1,0 +1,60 @@
+$spacings: 0, 4, 8, 16, 24, 32, 40, 48, 64;
+
+@each $spacing in $spacings {
+    .mb-#{$spacing} {
+        margin-bottom: #{$spacing}px;
+    }
+    .mt-#{$spacing} {
+        margin-top: #{$spacing}px;
+    }
+    .ml-#{$spacing} {
+        margin-left: #{$spacing}px;
+    }
+}
+
+@each $name, $size in $media-sizes {
+    @media (max-width: $size) {
+        .#{$name}\:hidden {
+            display: none !important;
+        }
+        @each $spacing in $spacings {
+            .#{$name}\:mb-#{$spacing} {
+                margin-bottom: #{$spacing}px
+            }
+            .#{$name}\:mt-#{$spacing} {
+                margin-top: #{$spacing}px
+            }
+            .#{$name}\:ml-#{$spacing} {
+                margin-left: #{$spacing}px
+            }
+        }
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.text-black {
+    color: $color-black;
+}
+
+.font-normal {
+    font-weight: 400;
+}

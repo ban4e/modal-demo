@@ -1,0 +1,27 @@
+.body {
+    background: linear-gradient(255deg, $color-red-800 0.85%, $color-red-500);
+    &__fallback {
+        display: flex;
+    }
+    &__wrapper {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow: hidden;
+        transition: $transition-main;
+    }
+    &__header {
+        flex: 0 0 auto;
+    }
+    &__container {
+        flex: 1 1 auto;
+    }
+}
+
+.body.is-overlay {
+    overflow: hidden;
+    .body__wrapper {
+        filter: blur(10px);
+    }
+}

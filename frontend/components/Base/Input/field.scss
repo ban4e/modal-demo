@@ -1,0 +1,205 @@
+.field {
+    position: relative;
+    &__container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: 40px;
+        max-height: 56px;
+        padding: 0 32px 0 10px;
+        border-radius: 3px;
+        background-color: $color-white;
+    }
+    &__fieldset {
+        position: absolute;
+        @include trbl(-1px);
+        padding: inherit;
+        border: 1px solid $color-gray-400;
+        border-radius: inherit;
+        transition: border $transition-main;
+    }
+    &__legend {
+        width: 0;
+        padding: 0;
+        margin-left: -5px;
+        margin-right: -5px;
+        box-sizing: content-box;
+        transition: width $transition-main, padding $transition-main;
+    }
+    &__entry {
+        @include rhythm(14px, 24px);
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding: 8px 0;
+        flex: 1;
+    }
+    &__label {
+        @include rhythm(14px, 24px);
+        position: absolute;
+        left: 0;
+        top: 50%;
+        max-width: 100%;
+        transform-origin: left top;
+        transform: translateY(-50%);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        pointer-events: none;
+        transition: transform $transition-main;
+    }
+    &__input {
+        position: relative;
+        display: block;
+        width: 100%;
+        padding: 0;
+        border: none;
+        border-radius: inherit;
+        background-color: transparent;
+        color: $color-black;
+        font-weight: 400;
+        outline: none;
+        resize: none;
+        z-index: 1;
+        &:-webkit-autofill,
+        &-internal-autofill-selected {
+            background-color: transparent !important;
+            box-shadow: 0 0 0 20px $color-white inset !important;
+            -webkit-box-shadow: 0 0 0 20px $color-white inset !important;
+            -webkit-text-fill-color: $color-text;
+            caret-color: $color-text;
+        }
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        &[type='number'] {
+            -moz-appearance: textfield;
+        }
+    }
+    &__append {
+        margin-left: 8px;
+    }
+    &__details {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding-top: 5px;
+        font-size: 11px;
+    }
+    &__error {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 16px;
+        &-figure {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: $color-danger;
+        }
+        &-icon {
+            fill: $color-white;
+        }
+    }
+    &__error-message {
+        color: $color-danger;
+    }
+}
+// Состояние с ошибкой
+.field.is-error {
+    .field__fieldset {
+        border-color: $color-danger;
+    }
+}
+// Состояние фокуса
+.field.is-focus {
+    .field__fieldset {
+        border-color: darken(rgba($color-black, 10), 10%);
+    }
+    .field__legend {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+// Состояние заполненного поля
+.field.is-fill {
+    .field__fieldset {
+        border-color: darken(rgba($color-black, 10), 10%);
+    }
+    .field__legend {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+.field_filled.is-fill,
+.field_filled.is-focus {
+    .field__label {
+        color: $color-black;
+    }
+}
+
+.field_light {
+    .field__container {
+        padding: 0;
+        align-items: flex-end;
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: block;
+            height: 1px;
+            background-color: rgba($color-black, 0.1);
+        }
+    }
+    .field__entry {
+        padding: 16px 0 8px;
+    }
+    .field__label {
+        opacity: 1;
+        transform-origin: left top;
+    }
+}
+.field_light.is-error {
+    .field__container {
+        &::before {
+            background-color: $color-danger;
+        }
+    }
+    .field__input {
+        padding-right: 30px;
+    }
+}
+
+.field_textarea {
+    .field__entry {
+        padding-top: 18px;
+    }
+    .field__label {
+        top: 18px;
+        transform: translateY(0);
+    }
+    .field__input {
+        @include rhythm(14, 20);
+        font-weight: 300;
+    }
+}
+
+.field-error-enter-active {
+    animation: jello-horizontal 0.65s;
+}
+
+.field-error-leave-active {
+    animation: none;
+}

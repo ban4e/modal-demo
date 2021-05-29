@@ -1,0 +1,165 @@
+.button {
+    @include rhythm(14, 24);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    border-radius: 6px;
+    color: $color-white-900;
+    background: $color-red-900;
+    box-shadow: 0 0px 24px rgba($color-red-900, .33);
+    font-weight: 500;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition: $transition-main;
+    @include media-breakpoint-down(sm) {
+        @include rhythm(14, 12);
+        padding: 16px 24px;
+    }
+    &::before {
+        content: '';
+        position: absolute;
+        @include trbl(0);
+        border: 1px solid transparent;
+        background: linear-gradient(255deg, $color-red-800 0.85%, $color-red-500);
+        border-radius: inherit;
+        transition: $transition-main;
+    }
+    &__content {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    &__content.is-invisible {
+        opacity: 0;
+    }
+    &__text {
+        user-select: none;
+    }
+    &__icon {
+        transition: $transition-main;
+    }
+    &__progress {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -10px;
+        margin-left: -10px;
+        color: $color-white;
+        animation: rotate-360 1.4s linear infinite;
+        width: 20px;
+        height: 20px;
+    }
+    &__progress-icon {
+        display: block;
+        width: 20px;
+    }
+    &__suffix,
+    &__prefix {
+        display: flex;
+        flex: 0 0 auto;
+        fill: currentColor;
+    }
+    &__suffix {
+        margin-left: 4px;
+    }
+    &__prefix {
+        margin-right: 4px;
+    }
+}
+.button:hover {
+    &::before {
+        opacity: 0;
+    }
+}
+.button.is-disabled,
+.button:disabled,
+.button.button.is-disabled:hover,
+.button:disabled:hover {
+    pointer-events: none;
+    background-color: rgba($color-black, 0.3);
+    cursor: default;
+    &::before {
+        border-color: rgba($color-black, 0.3);
+    }
+}
+.button.is-loading {
+    pointer-events: none;
+    .button__content {
+        opacity: 0;
+    }
+}
+
+.button_full {
+    width: 100%;
+}
+
+.button_link {
+    padding: 0;
+    border-radius: 0;
+    color: $color-link;
+    background: transparent;
+    box-shadow: none;
+    &::before {
+        display: none;
+    }
+}
+.button_link:hover {
+    color: $color-red-700;
+    background: transparent;
+    box-shadow: none;
+}
+
+.button_theme_light {
+    color: $color-red-900;
+    background: $color-white;
+    &::before {
+        background: transparent;
+        border-color: $color-white;
+    }
+}
+.button_theme_light:hover {
+    box-shadow: 0 8px 4px rgba($color-black, 0.1);
+}
+
+.button_theme_light.button_outline {
+    color: $color-white;
+    background: transparent;
+    &::before {
+        opacity: 1;
+        background: transparent;
+        border-color: $color-white;
+    }
+}
+
+.button-pulsy {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    border-radius: inherit;
+    transform: translateZ(0);
+    color: inherit;
+    pointer-events: none;
+    &__target {
+        position: absolute;
+        background: rgba($color-black, 0.15);
+        border-radius: 100%;
+        transform: scale(0);
+        transform-origin: center center;
+        pointer-events: none;
+        will-change: transform;
+    }
+}
+
+.pulsy-enter-active {
+    animation: pulsy 0.75s ease-out;
+}
+.pulsy-leave-active {
+    animation: none;
+}

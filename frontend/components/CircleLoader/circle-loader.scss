@@ -1,0 +1,27 @@
+.circle-loader {
+    display: inline-flex;
+    margin: 0 auto;
+    width: 28px;
+    animation: rotate-360 1.4s linear infinite;
+    &::before {
+        content: '';
+        display: block;
+        padding-top: 100%;
+    }
+    &__container {
+        position: relative;
+        flex: 1;
+    }
+    &__icon {
+        position: absolute;
+        @include trbl(0);
+        display: block;
+        margin: auto;
+    }
+    &__circle {
+        stroke: currentColor;
+        stroke-dasharray: 80px, 200px;
+        stroke-dashoffset: 0;
+        animation: progress 1.4s ease-in-out infinite;
+    }
+}
